@@ -56,24 +56,26 @@ section .text
     mov rsi, 0
     mov rdx, 0
     syscall
+
     mov r13, rax ; client_fd
     mov rax, read
     mov rdi, r13
     mov rsi, reqbuff
     mov rdx, bufflen
     syscall
+
     mov rax, write
     mov rdi, stdout
     mov rsi, reqbuff
     mov rdx, bufflen
     syscall
+
     mov rax, open
     mov rdi, filename
     mov rsi, 0
-
     syscall
+
     mov r14, rax
-    
     mov rax, read
     mov rdi, r14
     mov rsi, resbuff
