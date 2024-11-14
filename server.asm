@@ -21,6 +21,10 @@ section .data
   addrlen equ $ - address
 
   filename db "web/index.html", 0
+  welcome_message db "Starting the server in port 8081",0aH, 0
+  welcome_message_len equ $ - welcome_message
+  request_message db "Got request:", 0aH, 0
+  request_message_len equ $ - request_message
   bufflen equ 2048
   reqbuff TIMES bufflen db 0
   resbuff TIMES bufflen db 0
@@ -33,8 +37,12 @@ section .data
   headerlen equ $ - header
 section .text
     global _start
-
   _start:
+     mov rax, write
+     mov rdi, stdout
+     mov rsi, welcome_message
+     mov rdx, welcome_message_len
+     syscall
      mov rax, socket
      mov rdi, af_inet
      mov rsi, sock_stream
@@ -63,7 +71,11 @@ section .text
     mov rsi, reqbuff
     mov rdx, bufflen
     syscall
-
+    mov rax, write
+    mov rdi, stdout
+    mov rsi, request_message
+    mov rdx, request_message_len
+    syscall
     mov rax, write
     mov rdi, stdout
     mov rsi, reqbuff
