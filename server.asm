@@ -71,11 +71,13 @@ section .text
     mov rsi, reqbuff
     mov rdx, bufflen
     syscall
+
     mov rax, write
     mov rdi, stdout
     mov rsi, request_message
     mov rdx, request_message_len
     syscall
+
     mov rax, write
     mov rdi, stdout
     mov rsi, reqbuff
